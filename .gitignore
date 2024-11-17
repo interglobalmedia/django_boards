@@ -19,5 +19,4 @@ typescript
 htmlcov
 test.txt
 templates/includes/textarea_form.html
-media/*
 typescript

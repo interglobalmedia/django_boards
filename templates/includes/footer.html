@@ -1,0 +1,24 @@
+<footer class="site-footer text-center">
+  <script>
+                    const theDate = new Date();
+                    const footer = document.querySelector(".site-footer");
+                    footer.style.fontWeight = "400";
+                    footer.style.letterSpacing = "0.07rem";
+                    footer.style.fontFamily = "'Quicksand', sans-serif;";
+                    footer.style.fontSize = `1.2rem`;
+                    footer.style.height = `6rem`;
+                    footer.style.backgroundColor = `#000`;
+                    footer.style.color = `#fff`;
+                    footer.style.width = `100%`;
+                    footer.style.display = `flex`;
+                    footer.style.flexDirection = `column`;
+                    footer.style.justifyContent = `flex-end`;
+                    footer.style.paddingBottom = `1.25rem`;
+                    footer.innerHTML =
+                        `© ${theDate.getFullYear()} Maria D. Campbell `;
+                    const anchor = document.createElement('a')
+                    anchor.setAttribute('href', '/')
+                    footer.appendChild(anchor)
+                    anchor.innerHTML = `Django Boards`
+  </script>
+</footer>

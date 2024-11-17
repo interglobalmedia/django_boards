@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Post detail
+{% endblock title %}
+{% block breadcrumb %}
+  <div class="breadcrumbs mb-4 d-flex d-inline-flex">
+    <li class="breadcrumb-item">
+      <a href="{% url 'index' %}">Boards</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'board_topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a>
+    </li>
+    <li class="breadcrumb-item active">Topic post detail</li>
+  </div>
+{% endblock breadcrumb %}
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    {{ form }}
+    <input type="submit" value="Confirm" class="mt-4">
+    <!-- I have to define the url here as is even though it will redirect to home page as per success_url in views.py -->
+    <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">
+      <input type="submit" value="Cancel" class="mt-4">
+    </a>
+  </form>
+{% endblock content %}

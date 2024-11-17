@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Peralta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Peralta&family=Quicksand:wght@300..700&display=swap');
+
+/* CSS reset for cross-browser compatibility re margins and padding */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* for cross-browser compatibility smooth scrolling */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* end for cross-browser compatibility smooth scrolling */
+
+body {
+  font-family: "Quicksand", sans-serif;
+  overflow-x: hidden;
+}
+
+/* custom linear gradient styling using default bootstrap classes for setting linear gradient backgrounds. works properly this way. The reason for the refactor is because I added a sticky footer to profiles.html, profile.html and profile_detail.html. And all contain the background linear-gradient. */
+
+body.bg-primary.bg-gradient, body {
+  background: linear-gradient(60deg, #b4eeb4 25%, transparent 25.09%), linear-gradient(120deg, #90be90 33%, transparent 33.09%), linear-gradient(50deg, #7da67d 45%, transparent 45.09%), linear-gradient(-50deg, #b4eeb4 15%, transparent 15.09%), linear-gradient(-45deg, #90be90 33%, transparent 33.09%), linear-gradient(95deg, #b4eeb4 58.5%, transparent 58.59%), linear-gradient(95deg, #b4eeb4 100%, transparent 58.59%) !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* sticky footer styling */
+
+.site {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.site-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* end sticky footer styling */
+
+/* navbar custom styling. creates space to left of Django Boards logo. */
+
+.navbar {
+  padding-left: 0.5rem;
+}
+
+/* cross browser compatibility styling for the responsive navigation hamburger icon styling */
+
+.navbar-toggler, .navbar-toggler:focus, .navbar-toggler:active, .navbar-toggler-icon:focus {
+  border: none;
+  outline: none;
+	/* for Firefox. Removed thick border on focus */
+	box-shadow: none;
+}
+
+/* end cross browser compatibility styling for the responsive navigation hamburger icon styling */
+
+/* hamburger styling */
+
+.navbar-toggler {
+  right: 0.5rem;
+}
+
+@media (min-width: 1007px) {
+  .collapse.navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1rem;
+  }
+}
+
+/* end hamburger styling *
+
+/* Website logo styling */
+
+.navbar-brand {
+  font-family: "Peralta", serif;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* end Website logo styling */
+
+/* h1 styling in profiles.html profile.html, and profile_detail.html */
+
+.container h1 {
+  font-family: "Peralta", serif;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.container h1 a {
+  text-decoration: none;
+}
+
+/* Bootstrap card styling to change opacity of the card's background color. Could also change the opacity of a background image. instead of setting a color to the background property, you set an image. This is different from what is done in app.css. In accounts pages there is a linear gradient background to deal with. */
+
+.card {
+  background: transparent;
+  position: relative;
+  padding: 0.125rem 1rem 1rem;
+}
+
+.card::before {
+  background: #fff;
+  content: "";
+  height: 100%;
+  left: 50%;
+  opacity: 0.30;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: -1;
+}
+
+/* end card related styling */
+
+/* form control styling for accounts forms validation */
+
+.form-control.form-control-invalid {
+  border: 2px solid red;
+}
+
+/* navbar custom styling. creates space to left of Django Boards logo. */
+
+.navbar {
+  padding-left: 0.5rem;
+}
+
+/* profile avatar styling */
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* profile (default) avatar styling */
+
+img#user_avatar.img-circle.img-responsive {
+  border-radius: 50%;
+  margin-left: -2rem;
+}
+
+/*  label styling in profiles.html and profile.html */
+
+label {
+  font-size: 1.125rem;
+}
+
+/* footer styling */
+
+footer {
+  margin: 2rem auto 0;
+}

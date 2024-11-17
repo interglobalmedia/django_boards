@@ -1,0 +1,57 @@
+{% extends "users/base_profile.html" %}
+{% load static %}
+{% block title %}
+  Profiles Page
+{% endblock title %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="mt-4 mb-4">User profiles</h1>
+        {% for profile in profiles %}
+          <div class="row">
+            <div class="card mb-3">
+              <div class="profile-avatar">
+                <img class="rounded-circle account-img"
+                     src="{{ profile.avatar.url }} "
+                     style="cursor: pointer"
+                     width="80"
+                     height="80"
+                     alt="{{ profile.user.username }}"
+                     id="{{ profile.user.pk }}" />
+              </div>
+              <div class="row">
+                <div class="col-lg">
+                  <div class="form-group">
+                    <div class="col d-flex flex-row">
+                      <label class="fw-bold">First name:&nbsp;</label>
+                      <label>{{ profile.user.first_name }}</label>
+                    </div>
+                    <div class="col d-flex flex-row">
+                      <label class="fw-bold">Last name:&nbsp;</label>
+                      {{ profile.user.last_name }}
+                    </div>
+                    <div class="col d-flex flex-row">
+                      <label class="mb-1 fw-bold">Username:&nbsp;</label>
+                      <label>{{ profile.user.username }}</label>
+                    </div>
+                    <div class="col d-flex flex-row">
+                      <label class="mb-1 fw-bold">Email:&nbsp;</label>
+                      <label>{{ profile.user.email }}</label>
+                    </div>
+                    <div class="col d-flex flex-column">
+                      <label class="mb-1 fw-bold">Bio:&nbsp;</label>
+                      <div class="w-100">{{ profile.bio|truncatewords:15 }}</div>
+                      <a href="{% url 'profile' profile.pk %}">Learn more</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% include "includes/pagination.html" %}
+{% endblock content %}

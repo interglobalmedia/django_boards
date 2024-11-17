@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Peralta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Peralta&family=Quicksand:wght@300..700&display=swap');
+
+/* CSS reset for cross-browser compatibility re margins and padding */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* for cross-browser compatibility smooth scrolling */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* end for cross-browser compatibility smooth scrolling */
+
+/* .site class is set to body element */
+
+.site {
+	/* sticky footer related styling */
+  display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	font-family: "Quicksand", sans-serif;
+}
+
+.site-content {
+	flex: 1;
+	width: 100%;
+}
+
+/* end sticky footer related styling */
+
+/* navbar custom styling. creates space to left of Django Boards logo. */
+
+.navbar {
+  padding-left: 0.5rem;
+}
+
+/* cross browser compatibility styling for the responsive navigation hamburger icon styling */
+
+.navbar-toggler, .navbar-toggler:focus, .navbar-toggler:active, .navbar-toggler-icon:focus {
+  border: none;
+  outline: none;
+	/* for Firefox. Removed thick border on focus */
+	box-shadow: none;
+}
+
+/* end cross browser compatibility styling for the responsive navigation hamburger icon styling *
+
+/* hamburger styling */
+
+.navbar-toggler {
+  right: 0.5rem;
+}
+
+/* make navigation flex end in larger viewports (> 1006px) */
+
+@media (min-width: 1007px) {
+  .collapse.navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1rem;
+  }
+}
+
+/* hamburger styling *
+
+/* Website logo styling */
+
+.navbar-brand {
+  font-family: "Peralta", serif;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* breadcrumb item styling */
+
+.breadcrumb-item a {
+  text-decoration: none !important;
+}
+
+/*  card related styling */
+
+.card-header {
+  margin-bottom: 1rem;
+  /* background-image: linear-gradient(to bottom, #b4eeb4, #aa85e5); */
+}
+
+.card-header > h5 {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.card:last-of-type {
+  margin-bottom: 0.75rem;
+}
+
+.card-body {
+  width: 100%;
+}
+
+.col {
+  display: flex;
+}
+
+.card-title {
+  margin-left: 5rem;
+  margin-right: 1.5rem;
+}
+
+/*  end card related styling */
+
+/* reply button styling in reply_topic.html */
+
+.reply-button {
+  margin-left: 2.5rem;
+}
+
+/* Make copy text appear and disappear using CSS transitions */
+
+#copy-header {
+	position: relative;
+  margin-left: 1.75rem;
+}
+
+#copy-header .copy-button::before {
+	content: '';
+	border-radius: 3px;
+	display: flex;
+	padding: 0.25rem;
+	position: absolute;
+	top: -2rem;
+	left: 0;
+	width: 6.255rem;
+	line-height: 1;
+	transition: color 0.5s, transform 0.2s, background-color 0.2s; 
+}
+
+#copy-header .copy-button:hover::before {
+	content: 'Link copied!';
+	color: #2c7a7b;
+	border: 1px solid #2c7a7b;
+	background: #b4eeb4;
+}
+
+/* link icon styling */
+
+.link-icon {
+  font-size: 1.5rem;
+  width: 2.25rem;
+}
+
+/* Reply button styling */
+
+.reply-icon {
+  font-size: 1.2rem;
+}
+
+/* styling the default avatar or whatever is set to background here if applied. */
+
+.row.no-gutters:before {
+  background: url('/static/img/pen-container.svg') center center;
+  border-radius: 50%;
+  content: "";
+  height: 4rem;
+  top: 1rem;
+  left: 1rem;
+  object-fit: cover;
+  position: absolute;
+  width: 4rem;
+  /* Wanted to add my own "post avatar" so had to display this to none. */
+  display: none;
+}
+
+/*  user profile avatar styling */
+
+.django-avatar {
+	margin-left: 0.75rem;
+	padding-left: 1rem;
+}
+
+.profile-avatar {
+	width: 80px;
+	height: 80px;
+	margin-top: 0.5rem;
+}
+
+/* django-avatar and profile avatar styling */
+
+img#user_avatar.img-circle.img-responsive {
+	border-radius: 50%;
+	cursor: pointer;
+	margin-left: -2rem;
+  margin-top: 1rem;
+  /* Wanted to add my own "post avatar" so had to display this to none. */
+  display: none;
+}
+
+/* topic post edit button styling */
+
+/* topic posts edit button */
+
+.topic-posts-btn-edit {
+  margin-right: 1rem;
+}
+
+/*  reply topic post detail button */
+
+.reply-topic-btn-detail {
+  margin-bottom: -1.5rem;
+  margin-left: -1rem;
+}
+
+/* pagination styling */
+
+.pagination {
+  position: relative;
+}
+
+/* Logout button styling */
+
+.btn.btn-secondary.logout {
+  background: transparent;
+  border: none;
+  color: #000;
+  margin-left: 0.25rem;
+}
+
+/* scrollTop button styling */
+
+#btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+	z-index: 1000;
+}
+
+.btn.btn-danger.btn-floating.btn-lg {
+	border-radius: 50%;
+	border: 2px solid #000;
+	background: #aecb6e;
+	color: #0978f6;
+	transition: color 0.5s, transform 0.2s, background-color 0.2s;
+}
+
+.btn.btn-danger.btn-floating.btn-lg:hover {
+	background: #e4ddd3;
+	border-radius: 5px;
+	color: #000;
+}
+
+/* end scrollTop button styling */
+
+/*  styling for post.created_at, post.created_by, post.created_by.posts.count in in topic_posts.html, reply_topic.html, and post_detail.html  */
+
+small {
+	padding-left: 1rem;
+}
+
+/* topic post message styling in topic_posts.html */
+
+.post-message {
+  margin-left: 1rem;
+  text-align: left;
+}
+
+/* wrapper div class for edit and delete buttons in topic_posts.html */
+
+.user-post-buttons {
+	margin-left: 1rem;
+	margin-bottom: 1rem;
+}
+
+/* like count styling */
+
+#likes-count {
+  font-size: 1.125rem;
+  /* width: 2.125rem; */
+}
+
+/*  like button styling */
+
+#like-button {
+  transition: transform 0.4s ease-in-out;
+}
+
+/* footer styling */
+
+footer {
+  margin: 2rem auto -1.5rem;
+}

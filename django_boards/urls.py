@@ -26,57 +26,59 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("", views.BoardListView.as_view(), name="index"),
+    path("signup/", accounts_views.signup, name="signup"),
     path('', include('accounts.urls')),
-    path("accounts/", include("django.contrib.auth.urls")),
-    # path(
-    #     "login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"
-    # ),
-    # path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    # path(
-    #     "password_reset/",
-    #     auth_views.PasswordResetView.as_view(
-    #         template_name="password_reset.html",
-    #         email_template_name="password_reset_email.html",
-    #         subject_template_name="password_reset_subject.txt",
-    #     ),
-    #     name="password_reset",
-    # ),
-    # path(
-    #     "password_reset/done/",
-    #     auth_views.PasswordResetDoneView.as_view(
-    #         template_name="password_reset_done.html"
-    #     ),
-    #     name="password_reset_done",
-    # ),
-    # path(
-    #     "reset/<uidb64>/<token>/",
-    #     auth_views.PasswordResetConfirmView.as_view(
-    #         template_name="password_reset_confirm.html"
-    #     ),
-    #     name="password_reset_confirm",
-    # ),
-    # path(
-    #     "reset/done/",
-    #     auth_views.PasswordResetCompleteView.as_view(
-    #         template_name="password_reset_complete.html"
-    #     ),
-    #     name="password_reset_complete",
-    # ),
-    # path(
-    #     "password_change/",
-    #     auth_views.PasswordChangeView.as_view(template_name="password_change.html"),
-    #     name="password_change",
-    # ),
-    # path(
-    #     "password_change/done/",
-    #     auth_views.PasswordChangeDoneView.as_view(
-    #         template_name="password_change_done.html"
-    #     ),
-    #     name="password_change_done",
-    # ),
+    # path("accounts/", include("django.contrib.auth.urls")),
+    path(
+        "login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"
+    ),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path(
+        "password_reset/",
+        auth_views.PasswordResetView.as_view(
+            template_name="password_reset.html",
+            email_template_name="password_reset_email.html",
+            subject_template_name="password_reset_subject.txt",
+        ),
+        name="password_reset",
+    ),
+    path(
+        "password_reset/done/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="password_reset_done.html"
+        ),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="password_reset_confirm.html"
+        ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset/done/",
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="password_reset_complete.html"
+        ),
+        name="password_reset_complete",
+    ),
+    path(
+        "password_change/",
+        auth_views.PasswordChangeView.as_view(template_name="password_change.html"),
+        name="password_change",
+    ),
+    path(
+        "password_change/done/",
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name="password_change_done.html"
+        ),
+        name="password_change_done",
+    ),
     path("boards/<pk>/", views.TopicListView.as_view(), name="board_topics"),
     path("boards/<pk>/new/", views.new_topic, name="new_topic"),
     path("boards/<pk>/topics/<topic_pk>/", views.PostListView.as_view(), name="topic_posts"),

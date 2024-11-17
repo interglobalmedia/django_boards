@@ -67,7 +67,7 @@ if not IS_HEROKU_APP:
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "*",
+    "https://django-boards-072580a03fc2.herokuapp.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://django-boards-4ce48625014e.herokuapp.com']

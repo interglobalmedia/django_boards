@@ -29,7 +29,7 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('BUCKETEER_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.environ.get('BUCKETEER_AWS_REGION')
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # For user uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -67,7 +67,7 @@ if not IS_HEROKU_APP:
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "https://django-boards-072580a03fc2.herokuapp.com",
+    '*',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://django-boards-4ce48625014e.herokuapp.com']
@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",
     "django.contrib.humanize",
     "boards",
     "accounts",
@@ -111,7 +112,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # new
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # new
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -163,16 +164,23 @@ WSGI_APPLICATION = "django_boards.wsgi.application"
     # automatically by Heroku when a database addon is attached to your Heroku app. See:
     # https://devcenter.heroku.com/articles/provisioning-heroku-postgres#application-config-vars
     # https://github.com/jazzband/dj-database-url
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(os.getenv("DATABASE_NAME")),
-        'USER': str(os.getenv("DATABASE_USER")),
-        'PASSWORD': str(os.getenv("DATABASE_PASSWORD")),
-        'HOST': str(os.getenv("DATABASE_HOST")),
-        'PORT': '5432',
-    }
-}
+# When I add this line heroku local web partially works (no auth pages)
+# DATABASES = {
+#     'default': dj_database_url.config(conn_max_age=600)
+# }
+DATABASES = { 'default': dj_database_url.config() }
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': str(os.getenv("DATABASE_NAME")),
+#         'USER': str(os.getenv("DATABASE_USER")),
+#         'PASSWORD': str(os.getenv("DATABASE_PASSWORD")),
+#         'HOST': str(os.getenv("DATABASE_HOST")),
+#         'PORT': '5432',
+#     }
+# }
 # else:
 #     # When running locally in development or in CI, a sqlite database file will be used instead
 #     # to simplify initial setup. Longer term it's recommended to use Postgres locally too.
@@ -218,13 +226,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "/static/"  # added beginning forward slash
-
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-]
-
-STATIC_ROOT = BASE_DIR / "staticfiles"
+] 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

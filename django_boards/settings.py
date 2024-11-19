@@ -68,9 +68,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '*',
+    'https://django-boards-4ce48625014e.herokuapp.com',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://django-boards-4ce48625014e.herokuapp.com']
+CSRF_ALLOWED_HOSTS = ['https://django-boards-4ce48625014e.herokuapp.com', '127.0.0.1', '0.0.0.0']
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -171,25 +172,25 @@ WSGI_APPLICATION = "django_boards.wsgi.application"
 DATABASES = { 'default': dj_database_url.config() }
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': str(os.getenv("DATABASE_NAME")),
-#         'USER': str(os.getenv("DATABASE_USER")),
-#         'PASSWORD': str(os.getenv("DATABASE_PASSWORD")),
-#         'HOST': str(os.getenv("DATABASE_HOST")),
-#         'PORT': '5432',
-#     }
-# }
-# else:
-#     # When running locally in development or in CI, a sqlite database file will be used instead
-#     # to simplify initial setup. Longer term it's recommended to use Postgres locally too.
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": BASE_DIR / "db.sqlite3",
-#         }
-#     }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': str(os.getenv("DATABASE_NAME")),
+        'USER': str(os.getenv("DATABASE_USER")),
+        'PASSWORD': str(os.getenv("DATABASE_PASSWORD")),
+        'HOST': str(os.getenv("DATABASE_HOST")),
+        'PORT': '5432',
+    }
+}
+    # When running locally in development or in CI, a sqlite database file will be used instead
+    # to simplify initial setup. Longer term it's recommended to use Postgres locally too.
+if not IS_HEROKU_APP:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation

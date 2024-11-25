@@ -23,13 +23,7 @@ load_dotenv(dotenv_path)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-AWS_ACCESS_KEY_ID = os.environ.get('BUCKETEER_AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('BUCKETEER_AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('BUCKETEER_BUCKET_NAME')
-AWS_S3_REGION_NAME = os.environ.get('BUCKETEER_AWS_REGION')
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # For user uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -54,8 +48,6 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if not IS_HEROKU_APP:
-    DEBUG = True
 
 # On Heroku, it's safe to use a wildcard for `ALLOWED_HOSTS``, since the Heroku router performs
 # validation of the Host header in the incoming HTTP request. On other platforms you may need to
@@ -64,14 +56,9 @@ if not IS_HEROKU_APP:
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    '*',
-    'https://django-boards-4ce48625014e.herokuapp.com',
-]
-
-CSRF_ALLOWED_HOSTS = ['https://django-boards-4ce48625014e.herokuapp.com', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = []
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -84,7 +71,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "whitenoise.runserver_nostatic",
     "django.contrib.humanize",
     "boards",
     "accounts",
@@ -110,10 +96,9 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    'django.middleware.csrf.CsrfViewMiddleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # new
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # new
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -165,13 +150,6 @@ WSGI_APPLICATION = "django_boards.wsgi.application"
     # automatically by Heroku when a database addon is attached to your Heroku app. See:
     # https://devcenter.heroku.com/articles/provisioning-heroku-postgres#application-config-vars
     # https://github.com/jazzband/dj-database-url
-# When I add this line heroku local web partially works (no auth pages)
-# DATABASES = {
-#     'default': dj_database_url.config(conn_max_age=600)
-# }
-DATABASES = { 'default': dj_database_url.config() }
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -182,15 +160,15 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-    # When running locally in development or in CI, a sqlite database file will be used instead
-    # to simplify initial setup. Longer term it's recommended to use Postgres locally too.
-if not IS_HEROKU_APP:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+# else:
+#     # When running locally in development or in CI, a sqlite database file will be used instead
+#     # to simplify initial setup. Longer term it's recommended to use Postgres locally too.
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": BASE_DIR / "db.sqlite3",
+#         }
+#     }
 
 
 # Password validation
@@ -227,11 +205,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "/static/"
+STATIC_URL = "/static/"  # added beginning forward slash
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-] 
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
